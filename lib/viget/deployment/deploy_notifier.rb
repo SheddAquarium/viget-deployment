@@ -18,21 +18,21 @@ module Viget
 
       def payload
         {
-          "title": app_username, #<Environment> deploy
-          "sections": [{
-            "title": "[#{current_revision}](#{commit_url})", #revision number link to commit in github
-            "text": commit_message, #commit message from git
-            "facts": [{
-                        "name": "Deployed By", #header
-                        "value": user, #deployer
-                      }, {
-                        "name": "Branch", #header
-                        "value": "[#{branch_url}](#{branch})", #branch name link to branch in github
-                      }, {
-                        "name": "URL", #header
-                        "value": app_url, #environment url
-                      }]
-          }]
+          title: "#{app_emoji} #{environment} Deploy",
+          text: "[#{current_revision}](#{commit_url})",
+          sections: [{
+                         title: commit_message,
+                         facts: [{
+                                     name: "Deployed By",
+                                     value: user,
+                                   }, {
+                                     name: "Branch",
+                                     value: "[#{branch_url}](#{branch})",
+                                   }, {
+                                     name: "URL",
+                                     value: app_url,
+                                   }]
+                       }]
         }
       end
 
@@ -53,21 +53,6 @@ module Viget
       def app_url
         cap.fetch(:app_url, nil)
       end
-
-      # def color
-      #   case environment
-      #   when 'Integration'
-      #     '#d16d4e'
-      #   when 'Staging'
-      #     '#7c82d1'
-      #   else
-      #     '#23d15a'
-      #   end
-      # end
-
-      # def fallback
-      #   "#{current_revision}: #{commit_message}"
-      # end
 
       def environment
         cap.fetch(:stage).to_s.split('_').map(&:capitalize).join(' ')
@@ -116,21 +101,11 @@ module Viget
         http = Net::HTTP.new(app_uri.host, app_uri.port)
         http.use_ssl = true
 
-        request = Net::HTTP::Post.new(app_uri.request_uri)
-        request.set_form_data(payload: JSON.generate(payload))
+        request = Net::HTTP::Post.new(app_uri.request_uri, {'Content-Type' =>'application/json'})
+        request.body = payload.to_json
 
         http.request(request)
       end
-
-      # def clean(thinger)
-      #   opts = {
-      #     invalid: :replace,
-      #     undef:   :replace,
-      #     replace: ''
-      #   }
-      #
-      #   thinger.encode(Encoding.find('ASCII'), opts)
-      # end
 
     end
   end
