@@ -20,7 +20,7 @@ Capistrano::Configuration.instance.load do
           next
         end
 
-        notifier = Viget::Deployment::DeployNotifier.new(self, fetch(:deploy_notification_url), fetch(:deploy_notification_channel))
+        notifier = Viget::Deployment::DeployNotifier.new(self, fetch(:deploy_notification_url))
 
         notifier.notify
 

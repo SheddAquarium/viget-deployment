@@ -5,12 +5,11 @@ require 'json'
 module Viget
   module Deployment
     class DeployNotifier
-      attr_reader :cap, :deploy_notification_url, :deploy_notification_channel
+      attr_reader :cap, :deploy_notification_url
 
-      def initialize(cap, deploy_notification_url, deploy_notification_channel)
+      def initialize(cap, deploy_notification_url)
         @cap = cap
         @deploy_notification_url = deploy_notification_url
-        @deploy_notification_channel = deploy_notification_channel
       end
 
       def notify
