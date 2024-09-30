@@ -18,21 +18,15 @@ module Viget
 
       def payload
         {
-          title: "#{app_emoji} #{environment} Deploy",
-          text: "[#{current_revision}](#{commit_url})",
-          sections: [{
-                         title: commit_message,
-                         facts: [{
-                                     name: "Deployed By",
-                                     value: user,
-                                   }, {
-                                     name: "Branch",
-                                     value: "[#{branch_url}](#{branch})",
-                                   }, {
-                                     name: "URL",
-                                     value: app_url,
-                                   }]
-                       }]
+          emoji: app_emoji,
+          environment: environment,
+          currentRevision: current_revision,
+          commitURL: commit_url,
+          commitMessage: commit_message,
+          user: user,
+          branch: branch,
+          branchURL: branch_url,
+          environmentURL: app_url
         }
       end
 
@@ -47,7 +41,7 @@ module Viget
       end
 
       def app_emoji
-        cap.fetch(:app_emoji, '(bell)')
+        cap.fetch(:app_emoji, '2705')
       end
 
       def app_url
