@@ -18,5 +18,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'capistrano', '~> 2.15.0'
-  gem.add_dependency 'whenever',   '~> 0.8.0'
+  gem.add_dependency 'whenever',   '~> 0.9.0'
 end
